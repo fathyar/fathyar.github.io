@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	
+	
+		
+			<title>CSS and JS trick for sticky or fixed header overlapping targeted element — Fathy AR</title>
+			<meta property="og:title" content="CSS and JS trick for sticky or fixed header overlapping targeted element — Fathy AR">
+		
+	
+	
+	
+		<meta name="description" content="Fathy AR&#39;s personal site">
+		<meta property="og:description" content="Fathy AR&#39;s personal site">
+	
+	
+	<meta property="og:site_name" content="Fathy AR">
+	<meta property="og:type" content="blog">
+	<meta property="og:url" content="https://fathyar.github.io/">
+	
+
+	
+	<style type=text/css>body{font-family:Inter,sans-serif;}</style>
+	<link rel="stylesheet" href='/css/style.css'>
+	
+
+	
+	
+</head>
+<body>
+	<header class="site-banner">
+	<a href="#content" class="skip">Skip to main content</a>
+	<div>
+		<p style="margin: 0;">
+			<b><a href="https://fathyar.github.io/">Fathy AR</a></b>
+			<span style="float: right;"><small><i>A dev blog: journal, notes, and more...</i></small></span>
+		</p>
+	</div>
+	<nav aria-label="main">
+		<p style="margin: .5em 0;">
+			<a href="https://fathyar.github.io/"><b>Home</b></a>
+			&middot; <a href="/blog/"><b>Blog</b></a>
+			&middot; <a href="/cheatsheets/"><b>Cheat Sheets</b></a>
+			&middot; <a href="/categories/"><b>Categories</b></a>
+			&middot; <a href="/tags/"><b>Tags</b></a>
+			&middot; <a href="/about"><b>About</b></a>
+			
+		</p>
+	</nav>
+</header>
+
+	
+    <main>
+        
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+    <li>
+        <a href="/" >Home</a>
+    </li>
+    <li>
+        <a href="/blog/" >Blog</a>
+    </li>
+    <li class="active">
+        <a href="/blog/2021/08/css-and-js-trick-for-sticky-or-fixed-header-overlapping-targeted-element/"  aria-current="page">CSS and JS trick for sticky or fixed header overlapping targeted element</a>
+    </li>
+    </ol>
+</nav>
+        
+        <article id="content">
+            <header>
+                <h1 class="fancy-heading">CSS and JS trick for sticky or fixed header overlapping targeted element</h1>
+                <small>
+
+
+
+
+
+    
+    <p>
+        <b>
+        Posted 
+        
+            on <time>Aug 14, 2021</time>
+        
+        
+             in <a href="/cat/web-dev">Web Dev</a>
+        </b>
+        
+             &middot; 
+            386 words
+        
+        
+            &middot; 2 minute read
+        
+        
+            <br>
+            Tags:
+            
+                <a href="/tag/css">CSS</a>, <a href="/tag/javascript">JavaScript</a>, <a href="/tag/sticky-elements">sticky elements</a>
+    </p>
+    
+
+</small>
+            </header>
+            <div class="article-content">
+                <p>Assume you have an HTML page with sticky/fixed non-scrolling header on top.</p>
+<p>Then how should I solve the issue of the header overlapping a targeted element with an anchor (<code>#element-id</code>) i.e. make the browser scroll to the element but still respect the height of the fixed header as not to overlap the element?</p>
+<p>Here is what I found to be the simplest solution from CSS Tricks<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> which requires no JavaScript.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">html {
+  scroll-padding-top: 180<span style="font-weight:bold;text-decoration:underline">px</span>; <span style="color:#888;font-style:italic">/* height of sticky header */</span>
+}
+</code></pre></div><p>But, then, in my case (in the development of this blog), the header does not have a fixed height i.e. the height changes relative to the content of navigation inside it.</p>
+<p>The only way to work around this problem would be to keep detecting and tracking the changes of the header&rsquo;s height via JavaScript.</p>
+<p>The idea would be:</p>
+<ol>
+<li>Detect the initial height of the sticky/fixed header.</li>
+<li>Set value of the CSS property <code>scroll-padding-top</code> of <code>&lt;html&gt;</code>to the detected initial height.</li>
+<li>If there is a change in the height then update the value of <code>scroll-padding-top</code>.</li>
+</ol>
+<p>To make it easier, why not just jump straight in to the code.</p>
+<p>First, we will utilize CSS custom variable to store the value of fallback (if JS is disabled) and tracked (via JS) height of  the sticky/fixed header.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">html {
+  <span style="color:#666;font-weight:bold;font-style:italic">--header-h-fb</span>: 180<span style="font-weight:bold;text-decoration:underline">px</span>; <span style="color:#888;font-style:italic">/* the fallback value if JS is disabled */</span>
+  <span style="color:#666;font-weight:bold;font-style:italic">--header-h</span>: ;       <span style="color:#888;font-style:italic">/* what we will get and manipulate via JS */</span>
+  <span style="color:#666;font-weight:bold;font-style:italic">--calculated-h</span>: <span style="color:#666;font-weight:bold;font-style:italic">var</span>(--header-h, <span style="color:#666;font-weight:bold;font-style:italic">var</span>(--header-h-fb)); <span style="color:#888;font-style:italic">/* height of sticky header */</span>
+  scroll-padding-top: <span style="color:#666;font-weight:bold;font-style:italic">var</span>(--calculated-h);
+}
+</code></pre></div><p>Now, we will go through the JS script.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#666;font-style:italic">&#34;use strict&#34;</span>;
+
+<span style="font-weight:bold;font-style:italic">document</span>.addEventListener(<span style="color:#666;font-style:italic">&#34;DOMContentLoaded&#34;</span>, <span style="font-weight:bold;font-style:italic;text-decoration:underline">function</span>(event) {
+    <span style="font-weight:bold;text-decoration:underline">const</span> siteHeader = <span style="font-weight:bold;font-style:italic">document</span>.querySelector(<span style="color:#666;font-style:italic">&#34;header&#34;</span>);
+    <span style="font-weight:bold;text-decoration:underline">const</span> syncHeight = (height) =&gt; {
+        <span style="font-weight:bold;font-style:italic">document</span>.querySelector(<span style="color:#666;font-style:italic">&#34;html&#34;</span>).style.setProperty(<span style="color:#666;font-style:italic">&#34;--header-h&#34;</span>, height+<span style="color:#666;font-style:italic">&#34;px&#34;</span>);
+        console.log(<span style="color:#666;font-style:italic">&#34;Setting value of &lt;html&gt;&#39;s \&#34;--header-h\&#34; CSS property to &#34;</span>+height+<span style="color:#666;font-style:italic">&#34;px&#34;</span>);
+    };
+
+    <span style="font-weight:bold;text-decoration:underline">const</span> resizeObserver = <span style="font-weight:bold;text-decoration:underline">new</span> ResizeObserver((entries) =&gt; {
+        <span style="color:#888;font-style:italic">// modified from https://usefulangle.com/post/319/javascript-detect-element-resize
+</span><span style="color:#888;font-style:italic"></span>        <span style="color:#888;font-style:italic">// Notice that this uses the entries[0].borderBoxSize[0].blockSize; instead of entries[0].contentRect.height; as mentioned in the tutorial
+</span><span style="color:#888;font-style:italic"></span>        <span style="color:#888;font-style:italic">// because we need its height as it is rendered by inspector.
+</span><span style="color:#888;font-style:italic"></span>        <span style="color:#888;font-style:italic">// Run this `console.log(entries[0])` to see the details.
+</span><span style="color:#888;font-style:italic"></span>        console.log(entries[0]);
+        <span style="font-weight:bold;font-style:italic;text-decoration:underline">let</span> height = entries[0].borderBoxSize[0].blockSize;
+        console.log(<span style="color:#666;font-style:italic">&#39;Current height: &#39;</span> + height+<span style="color:#666;font-style:italic">&#34;px&#34;</span>);
+        syncHeight(height);
+    });
+    
+    resizeObserver.observe(siteHeader); <span style="color:#888;font-style:italic">// Start observing for resize.
+</span><span style="color:#888;font-style:italic"></span>});
+</code></pre></div><hr>
+<h4 id="related-issues-and-resources">Related issues and resources</h4>
+<ul>
+<li><a href="https://stackoverflow.com/q/4086107/7244822">Fixed page header overlaps in-page anchors</a></li>
+<li><a href="https://stackoverflow.com/q/10732690/7244822">offsetting an html anchor to adjust for fixed header [duplicate]</a></li>
+<li><a href="https://web.dev/resize-observer/">ResizeObserver: it’s like document.onresize for elements</a></li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Fixed Headers, On-Page Links, and Overlapping Content, Oh My! (<a href="https://css-tricks.com/fixed-headers-on-page-links-and-overlapping-content-oh-my/">https://css-tricks.com/fixed-headers-on-page-links-and-overlapping-content-oh-my/</a>)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+            </div>
+        </article>
+
+        
+
+
+<hr class="no-print">
+<nav aria-label="Previous and next pages" class="no-print">
+    <ul class="prev-next">
+        
+            <li class="prev">
+                <span>&#x2190; <small>Previous blog post:</small></span>
+                <a href="https://fathyar.github.io/blog/2021/08/my-first-post/" aria-label="Previous page">My First Post</a>
+            </li>
+        
+        
+            <li class="next">
+                <span><small>Next blog post:</small> &#x2192;</span>
+                <a href="https://fathyar.github.io/blog/2021/08/create-a-simple-shortcode-in-hugo-for-kbd-tag/" aria-label="Next page">Create a Simple Shortcode in Hugo for kbd tag</a>
+            </li>
+        
+    </ul>
+</nav>
+
+
+    </main>
+    <aside class="no-print">
+	<div>
+		<div>
+			<h3>LATEST POSTS</h3>
+		</div>
+		<div>
+			<ul>
+				
+				<li><a href="/blog/2021/08/finding-a-better-method-for-hiding-page-metadata-using-front-matter-variables/">Finding a Better Method for Hiding Page Metadata Using Front Matter Variables</a></li>
+				
+				<li><a href="/blog/2021/08/choosing-between-cheatsheets-and-snippets-sections-they-are-redundant/">Choosing Between Cheatsheets and Snippets Sections: They Are Redundant(?)</a></li>
+				
+				<li><a href="/blog/2021/08/introducing-my-hugo-theme-elementary/">Introducing My Hugo Theme, Elementary</a></li>
+				
+				<li><a href="/blog/2021/08/introducing-a-new-shortcode-abbr/">Introducing a New Shortcode: abbr</a></li>
+				
+				<li><a href="/blog/2021/08/hugo-tips-render-shortcode-syntax-as-plain-text/">Hugo Tips: Render shortcode syntax as plain text</a></li>
+				
+			</ul>
+		</div>
+	</div>
+</aside>
+
+
+	
+    <footer>
+        <div>
+            <p>
+                &copy; 2021 <a href="https://fathyar.github.io/"><b>Fathy AR</b></a>.
+                Powered by <a href="https://gohugo.io">Hugo</a>.
+                <a href="https://github.com/fathyar"><b>GitHub</b></a>
+                &middot; <a href="https://codepen.io/fathy_ar"><b>CodePen</b></a>
+                &middot; <a href="/index.xml"><b>RSS</b></a>
+            </p>
+        </div>
+    </footer>
+
+
+	
+	<script src='/js/script.js'></script>
+</body>
+</html>

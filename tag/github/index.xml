@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GitHub on Fathy AR</title>
+    <link>https://fathyar.github.io/tag/github/</link>
+    <description>Recent content in GitHub on Fathy AR</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 17 Aug 2021 10:44:38 +0700</lastBuildDate><atom:link href="https://fathyar.github.io/tag/github/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>&#34;Forking&#34; a Github Repo Without Forking It</title>
+      <link>https://fathyar.github.io/cheatsheet/forking-a-github-repo-without-forking-it/</link>
+      <pubDate>Tue, 17 Aug 2021 10:44:38 +0700</pubDate>
+      
+      <guid>https://fathyar.github.io/cheatsheet/forking-a-github-repo-without-forking-it/</guid>
+      <description>This is also known as &amp;ldquo;mirroring&amp;rdquo; a repository.
+Step by step process   Open your terminal.
+  Create a bare clone of the repo in your local machine.
+ git clone --bare https://github.com/username/old-repo-name.git  Notice the --bare parameter.
+  Go to the newly cloned directory.
+ cd old-repo-name    Mirror-push to the new repository[^before doing this make sure that you&amp;rsquo;ve already created the new repository on GitHub].</description>
+    </item>
+    
+  </channel>
+</rss>

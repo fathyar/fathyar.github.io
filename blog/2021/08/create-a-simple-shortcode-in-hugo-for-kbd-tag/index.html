@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	
+	
+		
+			<title>Create a Simple Shortcode in Hugo for kbd tag — Fathy AR</title>
+			<meta property="og:title" content="Create a Simple Shortcode in Hugo for kbd tag — Fathy AR">
+		
+	
+	
+	
+		<meta name="description" content="Fathy AR&#39;s personal site">
+		<meta property="og:description" content="Fathy AR&#39;s personal site">
+	
+	
+	<meta property="og:site_name" content="Fathy AR">
+	<meta property="og:type" content="blog">
+	<meta property="og:url" content="https://fathyar.github.io/">
+	
+
+	
+	<style type=text/css>body{font-family:Inter,sans-serif;}</style>
+	<link rel="stylesheet" href='/css/style.css'>
+	
+
+	
+	
+</head>
+<body>
+	<header class="site-banner">
+	<a href="#content" class="skip">Skip to main content</a>
+	<div>
+		<p style="margin: 0;">
+			<b><a href="https://fathyar.github.io/">Fathy AR</a></b>
+			<span style="float: right;"><small><i>A dev blog: journal, notes, and more...</i></small></span>
+		</p>
+	</div>
+	<nav aria-label="main">
+		<p style="margin: .5em 0;">
+			<a href="https://fathyar.github.io/"><b>Home</b></a>
+			&middot; <a href="/blog/"><b>Blog</b></a>
+			&middot; <a href="/cheatsheets/"><b>Cheat Sheets</b></a>
+			&middot; <a href="/categories/"><b>Categories</b></a>
+			&middot; <a href="/tags/"><b>Tags</b></a>
+			&middot; <a href="/about"><b>About</b></a>
+			
+		</p>
+	</nav>
+</header>
+
+	
+    <main>
+        
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+    <li>
+        <a href="/" >Home</a>
+    </li>
+    <li>
+        <a href="/blog/" >Blog</a>
+    </li>
+    <li class="active">
+        <a href="/blog/2021/08/create-a-simple-shortcode-in-hugo-for-kbd-tag/"  aria-current="page">Create a Simple Shortcode in Hugo for kbd tag</a>
+    </li>
+    </ol>
+</nav>
+        
+        <article id="content">
+            <header>
+                <h1 class="fancy-heading">Create a Simple Shortcode in Hugo for kbd tag</h1>
+                <small>
+
+
+
+
+
+    
+    <p>
+        <b>
+        Posted 
+        
+            on <time>Aug 15, 2021</time>
+        
+        
+             in <a href="/cat/web-dev">Web Dev</a>
+        </b>
+        
+             &middot; 
+            857 words
+        
+        
+            &middot; 5 minute read
+        
+        
+            <br>
+            Tags:
+            
+                <a href="/tag/hugo">Hugo</a>
+    </p>
+    
+
+</small>
+            </header>
+            <div class="article-content">
+                <p>In this post I explain about creating a simple custom shortcode in Hugo.</p>
+<p>But, before starting off, we need to know what shortcodes are and the way they
+works. So firstly I&rsquo;m going to walk us through a little bit explanation of that.</p>
+<h2 id="intro">Intro</h2>
+<p>Shortcodes are one type of templates in Hugo&mdash;like partials. The cool thing
+about this type of template is that it can accept parameters that makes it easy
+when dealing with generated content or when you want to customize the output of
+a snippet.</p>
+<p>In a nutshell, shortcodes are snippets that you can insert in your site content.</p>
+<h2 id="file-location">File location</h2>
+<p>Templates of shortcodes are stored in <code>/layouts/shortcodes/</code> directory. There
+are two kinds of this directory. The first one is the one which resides in your
+Hugo site&rsquo;s root directory. And the other one is under the themes' root
+directory. Shortcodes that are stored in the first kind of directory is
+prioritized by Hugo. This way you can override built-in shortcodes provided by
+themes.</p>
+<ol>
+<li><code>&lt;YOUR-HUGO-SITE&gt;/layouts/shortcodes/&lt;SHORTCODE&gt;.html</code></li>
+<li><code>&lt;YOUR-HUGO-SITE&gt;themes/&lt;THEME-NAME&gt;/layouts/shortcodes/&lt;SHORTCODE&gt;.html</code></li>
+</ol>
+<h2 id="creating-a-custom-shortcode">Creating a custom shortcode</h2>
+<p>As the title says, I&rsquo;ll walk you through the logic and process of creating a
+custom shortcode for a use case which is rendering a string parameter inside a
+pair of <code>&lt;kbd&gt;</code> tag.</p>
+<p>In this process, we will go backward. We will go from the end result&mdash;i.e.
+defining what we want to achieve&mdash;to the beginning i.e. the step-by-step
+process of the creation.</p>
+<p>Alright, here we go. Let&rsquo;s get started with defining what we want to get from
+this shortcode. Starting with name, we will choose <code>kbd</code> for the name of this
+shortcode.</p>
+<p>And below is the rendered result that we want this custom shortcode produce:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;kbd&gt;Ctrl&lt;/kbd&gt;
+</code></pre></div><p>Based on the wanted result above, we need one parameter to be passed on to the
+shortcode&mdash;which is the string <code>Ctrl</code>.</p>
+<p>According to <a href="https://gohugo.io/templates/shortcode-templates/#custom-shortcode-examples">Hugo&rsquo;s documentation of custom shortcode example</a>, single positional is
+the type of parameter that our <code>kbd</code> shortcode needs&mdash;just like the <a href="https://gohugo.io/templates/shortcode-templates/#single-positional-example-youtube"><code>youtube</code>
+shortcode example</a>
+listed in the documentation.</p>
+<p>The following code is how we use the aforementioned <code>youtube</code> shortcode:</p>
+<pre><code>{{&lt; youtube 09jf3ow9jfw &gt;}}
+</code></pre><p>As you can see, the <code>youtube</code> shortcode needs only one parameter, the
+<code>09jf3ow9jfw</code> string, which is the ID of a YouTube video. The code would load
+the template file at <code>/layouts/shortcodes/youtube.html</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;div class=<span style="color:#666;font-style:italic">&#34;embed video-player&#34;</span>&gt;
+  &lt;iframe class=<span style="color:#666;font-style:italic">&#34;youtube-player&#34;</span> type=<span style="color:#666;font-style:italic">&#34;text/html&#34;</span> width=<span style="color:#666;font-style:italic">&#34;640&#34;</span> height=<span style="color:#666;font-style:italic">&#34;385&#34;</span> src=<span style="color:#666;font-style:italic">&#34;https://www.youtube.com/embed/{{ index .Params 0 }}&#34;</span> allowfullscreen frameborder=<span style="color:#666;font-style:italic">&#34;0&#34;</span>&gt;
+  &lt;/iframe&gt;
+&lt;/div&gt;
+</code></pre></div><p>And render it as:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;div class=<span style="color:#666;font-style:italic">&#34;embed video-player&#34;</span>&gt;
+    &lt;iframe class=<span style="color:#666;font-style:italic">&#34;youtube-player&#34;</span> type=<span style="color:#666;font-style:italic">&#34;text/html&#34;</span>
+        width=<span style="color:#666;font-style:italic">&#34;640&#34;</span> height=<span style="color:#666;font-style:italic">&#34;385&#34;</span>
+        src=<span style="color:#666;font-style:italic">&#34;https://www.youtube.com/embed/09jf3ow9jfw&#34;</span>
+        allowfullscreen frameborder=<span style="color:#666;font-style:italic">&#34;0&#34;</span>&gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+</code></pre></div><p>Now, it&rsquo;s time to go back to our <code>kbd</code> shortcode. We will do the same thing as
+the <code>youtube</code> shortcode.</p>
+<p>The first thing is we need to create a file, <strong>kbd.html</strong>, and store it inside
+the <code>/layouts/shortcodes/</code> directory.</p>
+<p>Below is the content of the <strong>kbd.html</strong> file:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;kbd&gt;{{ index .Params 0 }}&lt;/kbd&gt;
+</code></pre></div><p>Do you notice the <code>{{ index .Params 0 }}</code>? Yup, that&rsquo;s how we tell Hugo where to
+insert the passed parameter. It will insert only the first parameter
+passed&mdash;specified by the number <code>0</code> which is the index of the first parameter.</p>
+<p>And, that&rsquo;s all. Now we can use our <code>kbd</code> shortcode.</p>
+<p>This</p>
+<pre><code>{{&lt; kbd Ctrl &gt;}}
+</code></pre><p>will be rendered as:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;kbd&gt;Ctrl&lt;/kbd&gt;
+</code></pre></div><p>Note that parameters with non-alphanumeric characters such as <code>⌘</code> need to be
+quoted like this <code>&quot;⌘&quot;</code> or Hugo will throw an error that says something like:</p>
+<pre><code>Rebuild failed:
+
+&quot;/home/user/site/content/file.md:21:25&quot;: unrecognized character in shortcode action: U+2318 '⌘'. Note: Parameters with non-alphanumeric args must be quoted
+</code></pre><p>For more information about shortcode templates, you refer back to its official
+documentation <a href="https://gohugo.io/templates/shortcode-templates/">here</a>.</p>
+<h2 id="background">Background</h2>
+<p>I was wondering of what happened when viewing <a href="../snippets/special-characters-keyboard-symbols.md">one of my snippets
+page</a> whose some characters
+that are supposed to be marked up in a pair of <code>&lt;kbd&gt;</code> tag, but the they
+weren&rsquo;t. So, in order to find out what the problem was, the first thing I needed
+to do was inspecting the respective elements. I needed to make sure if the
+problem was in the client side before jumping into the server side.</p>
+<p>And, my wonder got answered. What I found was that each tag&mdash;the opening and
+the closing tags&mdash;was replaced with an HTML comment
+<code>&lt;!-- raw HTML omitted --&gt;</code>. Obviously, this was a rendering problem on the
+client side&mdash;because the elements weren&rsquo;t rendered i.e. marked up properly as
+I wanted them to be&mdash;and also on the server side because there was a mistake
+in the source document that made Hugo not render it as I intended it to.</p>
+<p>Apparently, I was using a wrong way to mark-up the document by adding in raw
+HTML code to it. The solution to this problem would be to find out the correct
+way of adding raw HTML to Markdown content.</p>
+<p>Having stumbled upon a <a href="https://www.youtube.com/watch?v=2xkNJL4gJ9E">YouTube video</a>
+explaining about shortcodes, it kind of dawned on me that they are the way to go
+for working around this issue.</p>
+<p>Later, I found out that Hugo already had an explanation regarding this
+<a href="http://gohugo.io/content-management/shortcodes/#what-a-shortcode-is">here</a>.</p>
+<blockquote>
+<p>Hugo loves Markdown because of its simple content format, but there are times
+when Markdown falls short. Often, content authors are forced to add raw HTML
+(e.g., video <code>&lt;iframe&gt;</code>’s) to Markdown content. We think this contradicts the
+beautiful simplicity of Markdown’s syntax.</p>
+<p>Hugo created shortcodes to circumvent these limitations.</p>
+</blockquote>
+            </div>
+        </article>
+
+        
+
+
+<hr class="no-print">
+<nav aria-label="Previous and next pages" class="no-print">
+    <ul class="prev-next">
+        
+            <li class="prev">
+                <span>&#x2190; <small>Previous blog post:</small></span>
+                <a href="https://fathyar.github.io/blog/2021/08/css-and-js-trick-for-sticky-or-fixed-header-overlapping-targeted-element/" aria-label="Previous page">CSS and JS trick for sticky or fixed header overlapping targeted element</a>
+            </li>
+        
+        
+            <li class="next">
+                <span><small>Next blog post:</small> &#x2192;</span>
+                <a href="https://fathyar.github.io/blog/2021/08/hugo-tips-render-shortcode-syntax-as-plain-text/" aria-label="Next page">Hugo Tips: Render shortcode syntax as plain text</a>
+            </li>
+        
+    </ul>
+</nav>
+
+
+    </main>
+    <aside class="no-print">
+	<div>
+		<div>
+			<h3>LATEST POSTS</h3>
+		</div>
+		<div>
+			<ul>
+				
+				<li><a href="/blog/2021/08/finding-a-better-method-for-hiding-page-metadata-using-front-matter-variables/">Finding a Better Method for Hiding Page Metadata Using Front Matter Variables</a></li>
+				
+				<li><a href="/blog/2021/08/choosing-between-cheatsheets-and-snippets-sections-they-are-redundant/">Choosing Between Cheatsheets and Snippets Sections: They Are Redundant(?)</a></li>
+				
+				<li><a href="/blog/2021/08/introducing-my-hugo-theme-elementary/">Introducing My Hugo Theme, Elementary</a></li>
+				
+				<li><a href="/blog/2021/08/introducing-a-new-shortcode-abbr/">Introducing a New Shortcode: abbr</a></li>
+				
+				<li><a href="/blog/2021/08/hugo-tips-render-shortcode-syntax-as-plain-text/">Hugo Tips: Render shortcode syntax as plain text</a></li>
+				
+			</ul>
+		</div>
+	</div>
+</aside>
+
+
+	
+    <footer>
+        <div>
+            <p>
+                &copy; 2021 <a href="https://fathyar.github.io/"><b>Fathy AR</b></a>.
+                Powered by <a href="https://gohugo.io">Hugo</a>.
+                <a href="https://github.com/fathyar"><b>GitHub</b></a>
+                &middot; <a href="https://codepen.io/fathy_ar"><b>CodePen</b></a>
+                &middot; <a href="/index.xml"><b>RSS</b></a>
+            </p>
+        </div>
+    </footer>
+
+
+	
+	<script src='/js/script.js'></script>
+</body>
+</html>

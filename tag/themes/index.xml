@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Themes on Fathy AR</title>
+    <link>https://fathyar.github.io/tag/themes/</link>
+    <description>Recent content in Themes on Fathy AR</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 18 Aug 2021 08:19:08 +0700</lastBuildDate><atom:link href="https://fathyar.github.io/tag/themes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introducing My Hugo Theme, Elementary</title>
+      <link>https://fathyar.github.io/blog/2021/08/introducing-my-hugo-theme-elementary/</link>
+      <pubDate>Wed, 18 Aug 2021 08:19:08 +0700</pubDate>
+      
+      <guid>https://fathyar.github.io/blog/2021/08/introducing-my-hugo-theme-elementary/</guid>
+      <description>Elementary is a Hugo theme I created for my blog, this very blog. It is built based on another Hugo theme called smol. The design of some parts of it is inspired by a fork of smol.
+Note that Elementary is still a work in progress. You can visit its project repository on GitHub.</description>
+    </item>
+    
+  </channel>
+</rss>
