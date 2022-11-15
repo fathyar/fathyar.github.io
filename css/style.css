@@ -2,7 +2,7 @@
 :root {
     --font-ui: Inter, -apple-system, BlinkMacSystemFont, "Noto Sans Arabic", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Microsoft YaHei Light", sans-serif;
     --font-serif: Literata, serif;
-    --font-mono: Latin Modern Mono,FreeMono, Courier;
+    --font-mono: Latin Modern Mono, FreeMono, Courier;
     --bgcolor: #fafbfc;
     --fontcolor: #444;
     --linkcolor: #08f;
@@ -47,7 +47,7 @@ hr{border-style: dotted; border-color: var(--hrcolor);border-top: 0;}
 /*NAVIGATION > BREADCRUMB*/
 .breadcrumb {list-style: none;padding: 0;margin: 1em 0;}
 .breadcrumb li {display: inline;}
-.breadcrumb li:not(:first-child)::before {content: "\203a"; /* &rsaquo; */}
+.breadcrumb li:not(:first-child)::before {content: " \203a\ "; /* &rsaquo; */}
 .breadcrumb li:last-child a {color: var(--fontcolor);}
 
 /*NAVIGATION > PREV. & NEXT PAGES*/
