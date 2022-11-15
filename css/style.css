@@ -2,7 +2,7 @@
 :root {
     --font-ui: Inter, -apple-system, BlinkMacSystemFont, "Noto Sans Arabic", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Microsoft YaHei Light", sans-serif;
     --font-serif: Literata, serif;
-    --font-mono: FreeMono, Courier;
+    --font-mono: Latin Modern Mono,FreeMono, Courier;
     --bgcolor: #fafbfc;
     --fontcolor: #444;
     --linkcolor: #08f;
@@ -13,6 +13,7 @@
     --highlightbgcolor: #ff0;
     --highlightfontcolor: #000;
     --pleadcolor: #747474;
+    --tbodyrowevenbgcolor: #80808010;
 }
 @media (prefers-color-scheme: dark) {
     :root {
@@ -97,6 +98,12 @@ kbd {
 }
 blockquote {position: relative}
 blockquote::before {content: "";width: .2em;background-color: var(--hrcolor);border-radius:.2em;display: block;position: absolute;height: 100%;left: -1.75em;}
+
+/*TABLES*/
+table {border-collapse: collapse}
+tbody > tr:nth-child(even) {background-color: var(--tbodyrowevenbgcolor)}
+thead > tr > th {border-bottom: 2px solid var(--hrcolor)}
+thead > tr > th, tbody > tr > td {padding: .5em .15em}
 
 /*ACCESSIBILITY*/
 @keyframes highlight { from { color: var(--highlightfontcolor);background-color: var(--highlightbgcolor);outline: 1px solid var(--highlightfontcolor); } to { color: var(--fontcolor);background-color: initial;outline: initial; } }

@@ -1,43 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Cheat Sheets on Fathy AR</title>
-    <link>https://fathyar.github.io/cheatsheets/</link>
-    <description>Recent content in Cheat Sheets on Fathy AR</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 18 Aug 2021 10:00:01 +0700</lastBuildDate><atom:link href="https://fathyar.github.io/cheatsheets/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Sublime Text Shortcuts</title>
-      <link>https://fathyar.github.io/cheatsheet/sublime-text-shortcuts/</link>
-      <pubDate>Wed, 18 Aug 2021 10:00:01 +0700</pubDate>
-      
-      <guid>https://fathyar.github.io/cheatsheet/sublime-text-shortcuts/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>&#34;Forking&#34; a Github Repo Without Forking It</title>
-      <link>https://fathyar.github.io/cheatsheet/forking-a-github-repo-without-forking-it/</link>
-      <pubDate>Tue, 17 Aug 2021 10:44:38 +0700</pubDate>
-      
-      <guid>https://fathyar.github.io/cheatsheet/forking-a-github-repo-without-forking-it/</guid>
-      <description>This is also known as &amp;ldquo;mirroring&amp;rdquo; a repository.
-Step by step process   Open your terminal.
-  Create a bare clone of the repo in your local machine.
- git clone --bare https://github.com/username/old-repo-name.git  Notice the --bare parameter.
-  Go to the newly cloned directory.
- cd old-repo-name    Mirror-push to the new repository[^before doing this make sure that you&amp;rsquo;ve already created the new repository on GitHub].</description>
-    </item>
-    
-    <item>
-      <title>Special Characters: Keyboard Symbols</title>
-      <link>https://fathyar.github.io/cheatsheet/special-characters-keyboard-symbols/</link>
-      <pubDate>Sun, 15 Aug 2021 13:39:10 +0700</pubDate>
-      
-      <guid>https://fathyar.github.io/cheatsheet/special-characters-keyboard-symbols/</guid>
-      <description>   Name Symbol     Command ⌘   Alt ⎇   Option ⌥   Shift ⇧   Caps Lock ⇪   Backspace ⌫   Tab ↹   Windows ⊞   (mac) Enter ⌅ ⌤   (win) Enter ↵   Return ⏎ ↩ ↵   Arrows ↑ ↓ ← →    </description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cheat Sheets on Fathy AR</title><link>https://fathyar.github.io/cheatsheets/</link><description>Recent content in Cheat Sheets on Fathy AR</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 18 Aug 2021 10:00:01 +0700</lastBuildDate><atom:link href="https://fathyar.github.io/cheatsheets/index.xml" rel="self" type="application/rss+xml"/><item><title>Sublime Text Shortcuts</title><link>https://fathyar.github.io/cheatsheet/sublime-text-shortcuts/</link><pubDate>Wed, 18 Aug 2021 10:00:01 +0700</pubDate><guid>https://fathyar.github.io/cheatsheet/sublime-text-shortcuts/</guid><description/></item><item><title>"Forking" a Github Repo Without Forking It</title><link>https://fathyar.github.io/cheatsheet/forking-a-github-repo-without-forking-it/</link><pubDate>Tue, 17 Aug 2021 10:44:38 +0700</pubDate><guid>https://fathyar.github.io/cheatsheet/forking-a-github-repo-without-forking-it/</guid><description>This is also known as &amp;ldquo;mirroring&amp;rdquo; a repository.
+Step by step process Open your terminal.
+Create a bare clone of the repo in your local machine.
+git clone --bare https://github.com/username/old-repo-name.git Notice the --bare parameter.
+Go to the newly cloned directory.
+cd old-repo-name Mirror-push to the new repository[^before doing this make sure that you&amp;rsquo;ve already created the new repository on GitHub].
+git push --mirror https://github.com/username/new-repo-name.git Remove the local repository created earlier.</description></item><item><title>Special Characters: Keyboard Symbols</title><link>https://fathyar.github.io/cheatsheet/special-characters-keyboard-symbols/</link><pubDate>Sun, 15 Aug 2021 13:39:10 +0700</pubDate><guid>https://fathyar.github.io/cheatsheet/special-characters-keyboard-symbols/</guid><description> Name Symbol Command ⌘ Alt ⎇ Option ⌥ Shift ⇧ Caps Lock ⇪ Backspace ⌫ Tab ↹ Windows ⊞ (mac) Enter ⌅ ⌤ (win) Enter ↵ Return ⏎ ↩ ↵ Arrows ↑ ↓ ← →</description></item></channel></rss>

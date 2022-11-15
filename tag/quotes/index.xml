@@ -1,22 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Quotes on Fathy AR</title>
-    <link>https://fathyar.github.io/tag/quotes/</link>
-    <description>Recent content in Quotes on Fathy AR</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 13 Aug 2021 19:48:37 +0700</lastBuildDate><atom:link href="https://fathyar.github.io/tag/quotes/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>My First Post</title>
-      <link>https://fathyar.github.io/blog/2021/08/my-first-post/</link>
-      <pubDate>Fri, 13 Aug 2021 19:48:37 +0700</pubDate>
-      
-      <guid>https://fathyar.github.io/blog/2021/08/my-first-post/</guid>
-      <description>At first, I didn&amp;rsquo;t know what to type in this very first post. But then I remembered a saying from an ad that I thought was inspiring and relevant to this post and just wanted to share that. So, here it is.
- &amp;ldquo;You don&amp;rsquo;t have to be amazing to start. But you need to start to be amazing.&amp;rdquo;
- </description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Quotes on Fathy AR</title><link>https://fathyar.github.io/tag/quotes/</link><description>Recent content in Quotes on Fathy AR</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 13 Aug 2021 19:48:37 +0700</lastBuildDate><atom:link href="https://fathyar.github.io/tag/quotes/index.xml" rel="self" type="application/rss+xml"/><item><title>My First Post</title><link>https://fathyar.github.io/blog/2021/08/my-first-post/</link><pubDate>Fri, 13 Aug 2021 19:48:37 +0700</pubDate><guid>https://fathyar.github.io/blog/2021/08/my-first-post/</guid><description>At first, I didn&amp;rsquo;t know what to type in this very first post. But then I remembered a saying from an ad that I thought was inspiring and relevant to this post and just wanted to share that. So, here it is.
+&amp;ldquo;You don&amp;rsquo;t have to be amazing to start. But you need to start to be amazing.&amp;rdquo;</description></item></channel></rss>

@@ -1,265 +1,96 @@
-<!DOCTYPE html>
-<html lang="en-us">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	
-	
-	
-		
-			<title>Finding a Better Method for Hiding Page Metadata Using Front Matter Variables — Fathy AR</title>
-			<meta property="og:title" content="Finding a Better Method for Hiding Page Metadata Using Front Matter Variables — Fathy AR">
-		
-	
-	
-	
-		<meta name="description" content="Fathy AR&#39;s personal site">
-		<meta property="og:description" content="Fathy AR&#39;s personal site">
-	
-	
-	<meta property="og:site_name" content="Fathy AR">
-	<meta property="og:type" content="blog">
-	<meta property="og:url" content="https://fathyar.github.io/">
-	
-
-	
-	<style type=text/css>body{font-family:Inter,sans-serif;}</style>
-	<link rel="stylesheet" href='/css/style.css'>
-	
-
-	
-	
-</head>
-<body>
-	<header class="site-banner">
-	<a href="#content" class="skip">Skip to main content</a>
-	<div>
-		<p style="margin: 0;">
-			<b><a href="https://fathyar.github.io/">Fathy AR</a></b>
-			<span style="float: right;"><small><i>A dev blog: journal, notes, and more...</i></small></span>
-		</p>
-	</div>
-	<nav aria-label="main">
-		<p style="margin: .5em 0;">
-			<a href="https://fathyar.github.io/"><b>Home</b></a>
-			&middot; <a href="/blog/"><b>Blog</b></a>
-			&middot; <a href="/cheatsheets/"><b>Cheat Sheets</b></a>
-			&middot; <a href="/categories/"><b>Categories</b></a>
-			&middot; <a href="/tags/"><b>Tags</b></a>
-			&middot; <a href="/about"><b>About</b></a>
-			
-		</p>
-	</nav>
-</header>
-
-	
-    <main>
-        
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-    <li>
-        <a href="/" >Home</a>
-    </li>
-    <li>
-        <a href="/blog/" >Blog</a>
-    </li>
-    <li class="active">
-        <a href="/blog/2021/08/finding-a-better-method-for-hiding-page-metadata-using-front-matter-variables/"  aria-current="page">Finding a Better Method for Hiding Page Metadata Using Front Matter Variables</a>
-    </li>
-    </ol>
-</nav>
-        
-        <article id="content">
-            <header>
-                <h1 class="fancy-heading">Finding a Better Method for Hiding Page Metadata Using Front Matter Variables</h1>
-                <small>
-
-
-
-
-
-    
-    <p>
-        <b>
-        Posted 
-        
-            on <time>Aug 22, 2021</time>
-        
-        
-             in <a href="/cat/web-dev">Web Dev</a>
-        </b>
-        
-             &middot; 
-            695 words
-        
-        
-            &middot; 4 minute read
-        
-        
-            <br>
-            Tags:
-            
-                <a href="/tag/hugo">Hugo</a>, <a href="/tag/theme-development">Theme Development</a>
-    </p>
-    
-
-</small>
-            </header>
-            <div class="article-content">
-                <p>I was trying to solve a problem related to the option of displaying and hiding metadata of a page.
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="IE=edge"><title>Finding a Better Method for Hiding Page Metadata Using Front Matter Variables — Fathy AR</title><meta property="og:title" content="Finding a Better Method for Hiding Page Metadata Using Front Matter Variables — Fathy AR"><meta name=description content="Fathy AR's personal site"><meta property="og:description" content="Fathy AR's personal site"><meta property="og:site_name" content="Fathy AR"><meta property="og:type" content="blog"><meta property="og:url" content="https://fathyar.github.io/"><style type=text/css>body{font-family:Inter,sans-serif}</style><link rel=stylesheet href=/css/style.css></head><body><header class=site-banner><a href=#content class=skip>Skip to main content</a><div><p style=margin:0><b><a href=https://fathyar.github.io/>Fathy AR</a></b>
+<span style=float:right><small><i>A dev blog: journal, notes, and more...</i></small></span></p></div><nav aria-label=main><p style="margin:.5em 0"><a href=https://fathyar.github.io/><b>Home</b></a>
+&#183; <a href=/blog/><b>Blog</b></a>
+&#183; <a href=/cheatsheets/><b>Cheat Sheets</b></a>
+&#183; <a href=/categories/><b>Categories</b></a>
+&#183; <a href=/tags/><b>Tags</b></a>
+&#183; <a href=/about><b>About</b></a></p></nav></header><main><nav aria-label=breadcrumb><ol class=breadcrumb><li><a href=/>Home</a></li><li><a href=/blog/>Blog</a></li><li class=active><a href=/blog/2021/08/finding-a-better-method-for-hiding-page-metadata-using-front-matter-variables/ aria-current=page>Finding a Better Method for Hiding Page Metadata Using Front Matter Variables</a></li></ol></nav><article id=content><header><h1 class=fancy-heading>Finding a Better Method for Hiding Page Metadata Using Front Matter Variables</h1><small><p><b>Posted
+on <time>Aug 22, 2021</time>
+in <a href=/cat/web-dev>Web Dev</a></b>
+&#183;
+695 words
+&#183; 4 minute read<br>Tags:
+<a href=/tag/hugo>Hugo</a>, <a href=/tag/theme-development>Theme Development</a></p></small></header><div class=article-content><p>I was trying to solve a problem related to the option of displaying and hiding metadata of a page.
 This is useful in cases where some data in the metadata is irrelevant to be displayed. The
 metadata I&rsquo;m talking about here is the information of a page that is commonly displayed on top of
-or below the page&rsquo;s main heading or title such as date and word count. In my case, this metadata is generated by two partial templates in <code>partials/article/metadata.html</code> and <code>partials/article/metadata.less.html</code>.</p>
-<p>Here is the idea. I wanted users to be able to disable displaying some parts of the metadata&mdash;or
+or below the page&rsquo;s main heading or title such as date and word count. In my case, this metadata is generated by two partial templates in <code>partials/article/metadata.html</code> and <code>partials/article/metadata.less.html</code>.</p><p>Here is the idea. I wanted users to be able to disable displaying some parts of the metadata&mdash;or
 even the entire metadata&mdash;simply by adding one or some key-value pairs in the front matter. But,
-by default, the templates will display the metadata.</p>
-<p>Below is the example of a content page with a YAML front matter:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">---
-title: Hello
-date: 2021-08-22
-categories: [&#39;cat1&#39;, &#39;cat2&#39;]
----
-page content here
-</code></pre></div><p>The above content page example by default will display its metadata: date and categories.
+by default, the templates will display the metadata.</p><p>Below is the example of a content page with a YAML front matter:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>---
+</span></span><span style=display:flex><span>title: Hello
+</span></span><span style=display:flex><span>date: 2021-08-22
+</span></span><span style=display:flex><span>categories: [&#39;cat1&#39;, &#39;cat2&#39;]
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>page content here
+</span></span></code></pre></div><p>The above content page example by default will display its metadata: date and categories.
 And, by adding <code>displaymetadata: false</code> to the front matter, I want all of the metadata not to be
 displayed&mdash;excluding the title. And only the date will be hidden if <code>displaydate: false</code> is added.
 If <code>displaymetadata: true</code> and <code>displaydate: true</code> are added, then it won&rsquo;t matter because the
-default is that all parts of metadata is displayed.</p>
-<p>For example, the date in the content page below will be hidden.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">---
-title: Hello
-date: 2021-08-22
-categories: [&#39;cat1&#39;, &#39;cat2&#39;]
-displaymetadata: true
-displaydate: false
----
-page content here
-</code></pre></div><p>Here&rsquo;s a part of the content of the partial template file stored in the <code>metadata.html</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go-text-template" data-lang="go-text-template"><span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">if</span> $displayMetadata <span style="color:#888;font-weight:bold">}}</span>
-    <span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">if</span> <span style="font-weight:bold;text-decoration:underline">or</span> .Date .Params.categories <span style="color:#888;font-weight:bold">}}</span>
-    &lt;p&gt;
-        <span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">if</span> <span style="font-weight:bold;text-decoration:underline">or</span> $displayDate .Params.categories <span style="color:#888;font-weight:bold">}}</span>Posted <span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">end</span> <span style="color:#888;font-weight:bold">}}</span>
-        <span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">if</span> $displayDate <span style="color:#888;font-weight:bold">}}</span>
-            on &lt;time&gt;<span style="color:#888;font-weight:bold">{{</span> .Date.Format (default <span style="color:#666;font-style:italic">&#34;2006-01-02 15:04:05&#34;</span> .Site.Params.dateFmt) <span style="color:#888;font-weight:bold">}}</span>&lt;/time&gt;
-        <span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">end</span> <span style="color:#888;font-weight:bold">}}</span>
-        <span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">with</span> .Params.categories <span style="color:#888;font-weight:bold">}}</span>
-            <span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">range</span> first 1 . <span style="color:#888;font-weight:bold">}}</span> in &lt;a href=&#34;<span style="color:#888;font-weight:bold">{{</span> <span style="color:#666;font-style:italic">&#34;/cat/&#34;</span> | relLangURL <span style="color:#888;font-weight:bold">}}{{</span> . | urlize <span style="color:#888;font-weight:bold">}}</span>&#34;&gt;<span style="color:#888;font-weight:bold">{{</span> . <span style="color:#888;font-weight:bold">}}</span>&lt;/a&gt; <span style="color:#888;font-weight:bold">{{-</span> <span style="font-weight:bold;text-decoration:underline">end</span> <span style="color:#888;font-weight:bold">-}}</span>
-            <span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">range</span> after 1 . <span style="color:#888;font-weight:bold">-}}</span> , &lt;a href=&#34;<span style="color:#888;font-weight:bold">{{</span> <span style="color:#666;font-style:italic">&#34;/cat/&#34;</span> | relLangURL <span style="color:#888;font-weight:bold">}}{{</span> . | urlize <span style="color:#888;font-weight:bold">}}</span>&#34;&gt;<span style="color:#888;font-weight:bold">{{</span> . <span style="color:#888;font-weight:bold">}}</span>&lt;/a&gt; <span style="color:#888;font-weight:bold">{{-</span> <span style="font-weight:bold;text-decoration:underline">end</span> <span style="color:#888;font-weight:bold">-}}</span>
-        <span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">end</span> <span style="color:#888;font-weight:bold">}}</span>
-    &lt;/p&gt;
-    <span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">end</span> <span style="color:#888;font-weight:bold">}}</span>
-<span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">end</span> <span style="color:#888;font-weight:bold">}}</span>
-</code></pre></div><p>What I needed to do then, was assigning the value of <code>$displayMetadata</code> and <code>$displayDate</code>.
-Here is what I did the first time.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go-text-template" data-lang="go-text-template"><span style="color:#888;font-weight:bold">{{</span> $scratch := newScratch <span style="color:#888;font-weight:bold">}}</span>
-
-<span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">if</span> <span style="font-weight:bold;text-decoration:underline">eq</span> .Params.displaymetadata <span style="font-weight:bold;text-decoration:underline">false</span> <span style="color:#888;font-weight:bold">}}</span>
-    <span style="color:#888;font-weight:bold">{{</span> $scratch.Set <span style="color:#666;font-style:italic">&#34;displayMetadata&#34;</span> <span style="font-weight:bold;text-decoration:underline">false</span> <span style="color:#888;font-weight:bold">}}</span>
-<span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">else</span> <span style="color:#888;font-weight:bold">}}</span>
-    <span style="color:#888;font-weight:bold">{{</span> $scratch.Set <span style="color:#666;font-style:italic">&#34;displayMetadata&#34;</span> <span style="font-weight:bold;text-decoration:underline">true</span> <span style="color:#888;font-weight:bold">}}</span>
-<span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">end</span> <span style="color:#888;font-weight:bold">}}</span>
-
-<span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">if</span> <span style="font-weight:bold;text-decoration:underline">eq</span> .Params.displaydate <span style="font-weight:bold;text-decoration:underline">false</span> <span style="color:#888;font-weight:bold">}}</span>
-    <span style="color:#888;font-weight:bold">{{</span> $scratch.Set <span style="color:#666;font-style:italic">&#34;displayDate&#34;</span> <span style="font-weight:bold;text-decoration:underline">false</span> <span style="color:#888;font-weight:bold">}}</span>
-<span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">else</span> <span style="color:#888;font-weight:bold">}}</span>
-    <span style="color:#888;font-weight:bold">{{</span> $scratch.Set <span style="color:#666;font-style:italic">&#34;displayDate&#34;</span> <span style="font-weight:bold;text-decoration:underline">true</span> <span style="color:#888;font-weight:bold">}}</span>
-<span style="color:#888;font-weight:bold">{{</span> <span style="font-weight:bold;text-decoration:underline">end</span> <span style="color:#888;font-weight:bold">}}</span>
-
-<span style="color:#888;font-weight:bold">{{</span> $displayMetadata := $scratch.Get <span style="color:#666;font-style:italic">&#34;displayMetadata&#34;</span> <span style="color:#888;font-weight:bold">}}</span>
-<span style="color:#888;font-weight:bold">{{</span> $displayDate := $scratch.Get <span style="color:#666;font-style:italic">&#34;displayDate&#34;</span> <span style="color:#888;font-weight:bold">}}</span>
-</code></pre></div><p>What I did was utilizing Hugo&rsquo;s <code>newScratch</code> function. It worked. But, it was quite complicated for
-such a simple task. I needed to find an easier way.</p>
-<p>And, yes, I then found an easier and simpler way to do the task.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go-text-template" data-lang="go-text-template"><span style="color:#888;font-style:italic">{{/*
-</span><span style="color:#888;font-style:italic">    If the param value is not equal to false (i.e. &#34;true&#34; or &#34;not defined&#34;) then display the metadata,
-</span><span style="color:#888;font-style:italic">    otherwise when the param value is false then do not display the metadata
-</span><span style="color:#888;font-style:italic">*/}}</span>
-<span style="color:#888;font-weight:bold">{{</span> $displayMetadata := (<span style="font-weight:bold;text-decoration:underline">ne</span> .Params.displaymetadata <span style="font-weight:bold;text-decoration:underline">false</span>) <span style="color:#888;font-weight:bold">}}</span> 
-<span style="color:#888;font-weight:bold">{{</span> $displayDate := (<span style="font-weight:bold;text-decoration:underline">ne</span> .Params.displaydate <span style="font-weight:bold;text-decoration:underline">false</span>) <span style="color:#888;font-weight:bold">}}</span>
-</code></pre></div><p>It worked like a charm.</p>
-<p>But, then after contemplating and going back and forth between Hugo&rsquo;s docs pages, I decided to
+default is that all parts of metadata is displayed.</p><p>For example, the date in the content page below will be hidden.</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>---
+</span></span><span style=display:flex><span>title: Hello
+</span></span><span style=display:flex><span>date: 2021-08-22
+</span></span><span style=display:flex><span>categories: [&#39;cat1&#39;, &#39;cat2&#39;]
+</span></span><span style=display:flex><span>displaymetadata: true
+</span></span><span style=display:flex><span>displaydate: false
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>page content here
+</span></span></code></pre></div><p>Here&rsquo;s a part of the content of the partial template file stored in the <code>metadata.html</code>:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go-text-template data-lang=go-text-template><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>if</span> $displayMetadata <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>if</span> <span style=font-weight:700;text-decoration:underline>or</span> .Date .Params.categories <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span>    &lt;p&gt;
+</span></span><span style=display:flex><span>        <span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>if</span> <span style=font-weight:700;text-decoration:underline>or</span> $displayDate .Params.categories <span style=color:#888;font-weight:700>}}</span>Posted <span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>end</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span>        <span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>if</span> $displayDate <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span>            on &lt;time&gt;<span style=color:#888;font-weight:700>{{</span> .Date.Format (default <span style=color:#666;font-style:italic>&#34;2006-01-02 15:04:05&#34;</span> .Site.Params.dateFmt) <span style=color:#888;font-weight:700>}}</span>&lt;/time&gt;
+</span></span><span style=display:flex><span>        <span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>end</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span>        <span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>with</span> .Params.categories <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span>            <span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>range</span> first 1 . <span style=color:#888;font-weight:700>}}</span> in &lt;a href=&#34;<span style=color:#888;font-weight:700>{{</span> <span style=color:#666;font-style:italic>&#34;/cat/&#34;</span> | relLangURL <span style=color:#888;font-weight:700>}}{{</span> . | urlize <span style=color:#888;font-weight:700>}}</span>&#34;&gt;<span style=color:#888;font-weight:700>{{</span> . <span style=color:#888;font-weight:700>}}</span>&lt;/a&gt; <span style=color:#888;font-weight:700>{{-</span> <span style=font-weight:700;text-decoration:underline>end</span> <span style=color:#888;font-weight:700>-}}</span>
+</span></span><span style=display:flex><span>            <span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>range</span> after 1 . <span style=color:#888;font-weight:700>-}}</span> , &lt;a href=&#34;<span style=color:#888;font-weight:700>{{</span> <span style=color:#666;font-style:italic>&#34;/cat/&#34;</span> | relLangURL <span style=color:#888;font-weight:700>}}{{</span> . | urlize <span style=color:#888;font-weight:700>}}</span>&#34;&gt;<span style=color:#888;font-weight:700>{{</span> . <span style=color:#888;font-weight:700>}}</span>&lt;/a&gt; <span style=color:#888;font-weight:700>{{-</span> <span style=font-weight:700;text-decoration:underline>end</span> <span style=color:#888;font-weight:700>-}}</span>
+</span></span><span style=display:flex><span>        <span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>end</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span>    &lt;/p&gt;
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>end</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>end</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span></code></pre></div><p>What I needed to do then, was assigning the value of <code>$displayMetadata</code> and <code>$displayDate</code>.
+Here is what I did the first time.</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go-text-template data-lang=go-text-template><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> $scratch := newScratch <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>if</span> <span style=font-weight:700;text-decoration:underline>eq</span> .Params.displaymetadata <span style=font-weight:700;text-decoration:underline>false</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>{{</span> $scratch.Set <span style=color:#666;font-style:italic>&#34;displayMetadata&#34;</span> <span style=font-weight:700;text-decoration:underline>false</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>else</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>{{</span> $scratch.Set <span style=color:#666;font-style:italic>&#34;displayMetadata&#34;</span> <span style=font-weight:700;text-decoration:underline>true</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>end</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>if</span> <span style=font-weight:700;text-decoration:underline>eq</span> .Params.displaydate <span style=font-weight:700;text-decoration:underline>false</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>{{</span> $scratch.Set <span style=color:#666;font-style:italic>&#34;displayDate&#34;</span> <span style=font-weight:700;text-decoration:underline>false</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>else</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span>    <span style=color:#888;font-weight:700>{{</span> $scratch.Set <span style=color:#666;font-style:italic>&#34;displayDate&#34;</span> <span style=font-weight:700;text-decoration:underline>true</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> <span style=font-weight:700;text-decoration:underline>end</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> $displayMetadata := $scratch.Get <span style=color:#666;font-style:italic>&#34;displayMetadata&#34;</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> $displayDate := $scratch.Get <span style=color:#666;font-style:italic>&#34;displayDate&#34;</span> <span style=color:#888;font-weight:700>}}</span>
+</span></span></code></pre></div><p>What I did was utilizing Hugo&rsquo;s <code>newScratch</code> function. It worked. But, it was quite complicated for
+such a simple task. I needed to find an easier way.</p><p>And, yes, I then found an easier and simpler way to do the task.</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go-text-template data-lang=go-text-template><span style=display:flex><span><span style=color:#888;font-style:italic>{{/*
+</span></span></span><span style=display:flex><span><span style=color:#888;font-style:italic>    If the param value is not equal to false (i.e. &#34;true&#34; or &#34;not defined&#34;) then display the metadata,
+</span></span></span><span style=display:flex><span><span style=color:#888;font-style:italic>    otherwise when the param value is false then do not display the metadata
+</span></span></span><span style=display:flex><span><span style=color:#888;font-style:italic>*/}}</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> $displayMetadata := (<span style=font-weight:700;text-decoration:underline>ne</span> .Params.displaymetadata <span style=font-weight:700;text-decoration:underline>false</span>) <span style=color:#888;font-weight:700>}}</span> 
+</span></span><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> $displayDate := (<span style=font-weight:700;text-decoration:underline>ne</span> .Params.displaydate <span style=font-weight:700;text-decoration:underline>false</span>) <span style=color:#888;font-weight:700>}}</span>
+</span></span></code></pre></div><p>It worked like a charm.</p><p>But, then after contemplating and going back and forth between Hugo&rsquo;s docs pages, I decided to
 change the parameters key name in the front matter to something that is more relevant and
-to-the-point.</p>
-<p>So, instead of this,</p>
-<pre><code>displaymetadata: false
+to-the-point.</p><p>So, instead of this,</p><pre tabindex=0><code>displaymetadata: false
 displaydate: false
-</code></pre><p>I chose this,</p>
-<pre><code>metadataHideAll: true
+</code></pre><p>I chose this,</p><pre tabindex=0><code>metadataHideAll: true
 metadataHideDate: true
 </code></pre><p>because by default the template will display the metadata, and it is way closer to logic to use
 the <code>metadataHideAll</code> key and set its value to <code>true</code> in order to tell the template to hide them
-than it is to use the <code>displaymetadata</code> with its value set to <code>false</code>.</p>
-<p>So, here is the final version of the method in setting the value of <code>$displayMetadata</code> and
-<code>$displayDate</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go-text-template" data-lang="go-text-template"><span style="color:#888;font-style:italic">{{/*
-</span><span style="color:#888;font-style:italic">    if the param value is not equal to true (i.e. &#34;false&#34; or &#34;not defined&#34;) then $displayMetadata is set to true,
-</span><span style="color:#888;font-style:italic">    else when the param value is &#34;true&#34; then $displayMetadata is set to false
-</span><span style="color:#888;font-style:italic">*/}}</span>
-
-<span style="color:#888;font-weight:bold">{{</span> $displayMetadata := (<span style="font-weight:bold;text-decoration:underline">ne</span> .Params.metadataHideAll <span style="font-weight:bold;text-decoration:underline">true</span>) <span style="color:#888;font-weight:bold">}}</span>
-<span style="color:#888;font-weight:bold">{{</span> $displayDate := (<span style="font-weight:bold;text-decoration:underline">ne</span> .Params.metadataHideDate <span style="font-weight:bold;text-decoration:underline">true</span>) <span style="color:#888;font-weight:bold">}}</span>
-</code></pre></div>
-            </div>
-        </article>
-
-        
-
-
-<hr class="no-print">
-<nav aria-label="Previous and next pages" class="no-print">
-    <ul class="prev-next">
-        
-            <li class="prev">
-                <span>&#x2190; <small>Previous blog post:</small></span>
-                <a href="https://fathyar.github.io/blog/2021/08/choosing-between-cheatsheets-and-snippets-sections-they-are-redundant/" aria-label="Previous page">Choosing Between Cheatsheets and Snippets Sections: They Are Redundant(?)</a>
-            </li>
-        
-        
-    </ul>
-</nav>
-
-
-    </main>
-    <aside class="no-print">
-	<div>
-		<div>
-			<h3>LATEST POSTS</h3>
-		</div>
-		<div>
-			<ul>
-				
-				<li><a href="/blog/2021/08/finding-a-better-method-for-hiding-page-metadata-using-front-matter-variables/">Finding a Better Method for Hiding Page Metadata Using Front Matter Variables</a></li>
-				
-				<li><a href="/blog/2021/08/choosing-between-cheatsheets-and-snippets-sections-they-are-redundant/">Choosing Between Cheatsheets and Snippets Sections: They Are Redundant(?)</a></li>
-				
-				<li><a href="/blog/2021/08/introducing-my-hugo-theme-elementary/">Introducing My Hugo Theme, Elementary</a></li>
-				
-				<li><a href="/blog/2021/08/introducing-a-new-shortcode-abbr/">Introducing a New Shortcode: abbr</a></li>
-				
-				<li><a href="/blog/2021/08/hugo-tips-render-shortcode-syntax-as-plain-text/">Hugo Tips: Render shortcode syntax as plain text</a></li>
-				
-			</ul>
-		</div>
-	</div>
-</aside>
-
-
-	
-    <footer>
-        <div>
-            <p>
-                &copy; 2021 <a href="https://fathyar.github.io/"><b>Fathy AR</b></a>.
-                Powered by <a href="https://gohugo.io">Hugo</a>.
-                <a href="https://github.com/fathyar"><b>GitHub</b></a>
-                &middot; <a href="https://codepen.io/fathy_ar"><b>CodePen</b></a>
-                &middot; <a href="/index.xml"><b>RSS</b></a>
-            </p>
-        </div>
-    </footer>
-
-
-	
-	<script src='/js/script.js'></script>
-</body>
-</html>
+than it is to use the <code>displaymetadata</code> with its value set to <code>false</code>.</p><p>So, here is the final version of the method in setting the value of <code>$displayMetadata</code> and
+<code>$displayDate</code>:</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go-text-template data-lang=go-text-template><span style=display:flex><span><span style=color:#888;font-style:italic>{{/*
+</span></span></span><span style=display:flex><span><span style=color:#888;font-style:italic>    if the param value is not equal to true (i.e. &#34;false&#34; or &#34;not defined&#34;) then $displayMetadata is set to true,
+</span></span></span><span style=display:flex><span><span style=color:#888;font-style:italic>    else when the param value is &#34;true&#34; then $displayMetadata is set to false
+</span></span></span><span style=display:flex><span><span style=color:#888;font-style:italic>*/}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> $displayMetadata := (<span style=font-weight:700;text-decoration:underline>ne</span> .Params.metadataHideAll <span style=font-weight:700;text-decoration:underline>true</span>) <span style=color:#888;font-weight:700>}}</span>
+</span></span><span style=display:flex><span><span style=color:#888;font-weight:700>{{</span> $displayDate := (<span style=font-weight:700;text-decoration:underline>ne</span> .Params.metadataHideDate <span style=font-weight:700;text-decoration:underline>true</span>) <span style=color:#888;font-weight:700>}}</span>
+</span></span></code></pre></div></div></article><hr class=no-print><nav aria-label="Previous and next pages" class=no-print><ul class=prev-next><li class=prev><span>&#8592; <small>Previous blog post:</small></span>
+<a href=https://fathyar.github.io/blog/2021/08/choosing-between-cheatsheets-and-snippets-sections-they-are-redundant/ aria-label="Previous page">Choosing Between Cheatsheets and Snippets Sections: They Are Redundant(?)</a></li><li class=next><span><small>Next blog post:</small> &#8594;</span>
+<a href=https://fathyar.github.io/blog/2022/11/odoo-external-api-integration-demo-with-docker/ aria-label="Next page">Odoo External API Integration Demo with Docker</a></li></ul></nav></main><aside class=no-print><div><div><h3>LATEST POSTS</h3></div><div><ul><li><a href=/blog/2022/11/odoo-external-api-integration-demo-with-docker/>Odoo External API Integration Demo with Docker</a></li><li><a href=/blog/2021/08/finding-a-better-method-for-hiding-page-metadata-using-front-matter-variables/>Finding a Better Method for Hiding Page Metadata Using Front Matter Variables</a></li><li><a href=/blog/2021/08/choosing-between-cheatsheets-and-snippets-sections-they-are-redundant/>Choosing Between Cheatsheets and Snippets Sections: They Are Redundant(?)</a></li><li><a href=/blog/2021/08/introducing-my-hugo-theme-elementary/>Introducing My Hugo Theme, Elementary</a></li><li><a href=/blog/2021/08/introducing-a-new-shortcode-abbr/>Introducing a New Shortcode: abbr</a></li></ul></div></div></aside><footer><div><p>&copy; 2022 <a href=https://fathyar.github.io/><b>Fathy AR</b></a>.
+Powered by <a href=https://gohugo.io>Hugo</a>.
+<a href=https://github.com/fathyar><b>GitHub</b></a>
+&#183; <a href=https://codepen.io/fathy_ar><b>CodePen</b></a>
+&#183; <a href=/index.xml><b>RSS</b></a></p></div></footer><script src=/js/script.js></script></body></html>

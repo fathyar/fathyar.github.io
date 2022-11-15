@@ -1,21 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>CSS on Fathy AR</title>
-    <link>https://fathyar.github.io/tag/css/</link>
-    <description>Recent content in CSS on Fathy AR</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 14 Aug 2021 14:06:50 +0700</lastBuildDate><atom:link href="https://fathyar.github.io/tag/css/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>CSS and JS trick for sticky or fixed header overlapping targeted element</title>
-      <link>https://fathyar.github.io/blog/2021/08/css-and-js-trick-for-sticky-or-fixed-header-overlapping-targeted-element/</link>
-      <pubDate>Sat, 14 Aug 2021 14:06:50 +0700</pubDate>
-      
-      <guid>https://fathyar.github.io/blog/2021/08/css-and-js-trick-for-sticky-or-fixed-header-overlapping-targeted-element/</guid>
-      <description>&lt;p&gt;Assume you have an HTML page with sticky/fixed non-scrolling header on top.&lt;/p&gt;
-&lt;p&gt;Then how should I solve the issue of the header overlapping a targeted element with an anchor (&lt;code&gt;#element-id&lt;/code&gt;) i.e. make the browser scroll to the element but still respect the height of the fixed header as not to overlap the element?&lt;/p&gt;</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CSS on Fathy AR</title><link>https://fathyar.github.io/tag/css/</link><description>Recent content in CSS on Fathy AR</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 14 Aug 2021 14:06:50 +0700</lastBuildDate><atom:link href="https://fathyar.github.io/tag/css/index.xml" rel="self" type="application/rss+xml"/><item><title>CSS and JS trick for sticky or fixed header overlapping targeted element</title><link>https://fathyar.github.io/blog/2021/08/css-and-js-trick-for-sticky-or-fixed-header-overlapping-targeted-element/</link><pubDate>Sat, 14 Aug 2021 14:06:50 +0700</pubDate><guid>https://fathyar.github.io/blog/2021/08/css-and-js-trick-for-sticky-or-fixed-header-overlapping-targeted-element/</guid><description>&lt;p>Assume you have an HTML page with sticky/fixed non-scrolling header on top.&lt;/p>
+&lt;p>Then how should I solve the issue of the header overlapping a targeted element with an anchor (&lt;code>#element-id&lt;/code>) i.e. make the browser scroll to the element but still respect the height of the fixed header as not to overlap the element?&lt;/p></description></item></channel></rss>
