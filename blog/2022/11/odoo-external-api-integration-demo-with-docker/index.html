@@ -1,0 +1,263 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="IE=edge"><title>Odoo External API Integration Demo with Docker — Fathy AR</title><meta property="og:title" content="Odoo External API Integration Demo with Docker — Fathy AR"><meta name=description content="Fathy AR's personal site"><meta property="og:description" content="Fathy AR's personal site"><meta property="og:site_name" content="Fathy AR"><meta property="og:type" content="blog"><meta property="og:url" content="https://fathyar.github.io/"><style type=text/css>body{font-family:Inter,sans-serif}</style><link rel=stylesheet href=/css/style.css></head><body><header class=site-banner><a href=#content class=skip>Skip to main content</a><div><p style=margin:0><b><a href=https://fathyar.github.io/>Fathy AR</a></b>
+<span style=float:right><small><i>A dev blog: journal, notes, and more...</i></small></span></p></div><nav aria-label=main><p style="margin:.5em 0"><a href=https://fathyar.github.io/><b>Home</b></a>
+&#183; <a href=/blog/><b>Blog</b></a>
+&#183; <a href=/cheatsheets/><b>Cheat Sheets</b></a>
+&#183; <a href=/categories/><b>Categories</b></a>
+&#183; <a href=/tags/><b>Tags</b></a>
+&#183; <a href=/about><b>About</b></a></p></nav></header><main><nav aria-label=breadcrumb><ol class=breadcrumb><li><a href=/>Home</a></li><li><a href=/blog/>Blog</a></li><li class=active><a href=/blog/2022/11/odoo-external-api-integration-demo-with-docker/ aria-current=page>Odoo External API Integration Demo with Docker</a></li></ol></nav><article id=content><header><h1 class=fancy-heading>Odoo External API Integration Demo with Docker</h1><small><p><b>Posted
+on <time>Nov 15, 2022</time>
+in <a href=/cat/software-development>Software Development</a></b>
+&#183;
+2498 words
+&#183; 12 minute read<br>Tags:
+<a href=/tag/odoo>Odoo</a>, <a href=/tag/docker>Docker</a>, <a href=/tag/addons>addons</a></p></small></header><div class=article-content><p>This article is a step-by-step demonstration of the instructions provided by
+Chapter 9 of the Odoo 15 Development Essentials (5th Edition) book, about
+learning the working of Odoo&rsquo;s external API by installing a custom Odoo app
+(also called module or addon) and its client app which utilizes Odoo&rsquo;s external
+API to communicate with the custom Odoo app on the server side. The
+custom Odoo app code is taken from the source code attachment of the book.
+The source code attachment is available on this GitHub repo:
+<a href=https://github.com/PacktPublishing/Odoo-15-Development-Essentials>PacktPublishing/Odoo-15-Development-Essentials</a>.</p><h2 id=aim>Aim</h2><ul><li>Learning the working of Odoo&rsquo;s external API by following instructions provided
+by Chapter 9 of the Odoo 15 Development Essentials (5th Edition) book.</li></ul><h2 id=objectives>Objectives</h2><ul><li>Create our custom Odoo app (addon) of library (book catalog).
+This includes the installation process of it, also the pre-installation setup.
+For the custom addon, we will use one that is already made and ready to use,
+whose creation process and explanation can be found in Chapter 3 of the book,
+which is available already on this GitHub repo:
+<a href=https://github.com/PacktPublishing/Odoo-15-Development-Essentials>PacktPublishing/Odoo-15-Development-Essentials</a>.</li><li>Utilizing Odoo&rsquo;s external API, create a client app (CLI) of our costom addon.
+With the client app, we can do basic manipulative functionalities of our
+book catalog.</li></ul><h2 id=procedure>Procedure</h2><h3 id=setup>Setup</h3><p><strong>Note</strong>: This procedure is assuming that you are running Odoo using Docker with
+the instruction from this repo: <a href=https://github.com/minhng92/odoo-15-docker-compose>minhng92/odoo-15-docker-compose</a>.
+Also make sure that you have <code>python3</code> and <code>pip3</code> installed on your system.
+And your system is running on GNU/Linux.</p><p>This is the structure of my Odoo container. Notice the <code>addons</code> directory.
+And also that <code>your-odoo-container</code> represents my Odoo container.</p><pre tabindex=0><code>user@computer:~/path/to/your-odoo-container
+$ tree -L 1
+.
+├── addons
+├── docker-compose.yml
+├── entrypoint.sh
+├── etc
+├── postgresql
+├── README.md
+└── run.sh
+</code></pre><h3 id=installing-our-custom-addon-library-management-library_app>Installing our custom addon, Library Management (<code>library_app</code>)</h3><ol><li><p>Clone this repo to your local computer:
+<a href=https://github.com/PacktPublishing/Odoo-15-Development-Essentials>PacktPublishing/Odoo-15-Development-Essentials</a></p><pre tabindex=0><code>$ git clone https://github.com/PacktPublishing/Odoo-15-Development-Essentials.git
+</code></pre></li><li><p>From the root directory of the previously cloned repo, go to <code>ch03</code> folder.</p></li><li><p>Copy the <code>library_app</code> folder to the <code>addons</code> directory of your Odoo
+container.</p></li></ol><h3 id=activating-our-addon>Activating our addon</h3><ol><li>Restart your Odoo container (this can be done via Docker Desktop or CLI)</li><li>Open your browser and go to your Odoo instance.
+Mine is at <code>http://localhost:10015/web</code>.</li><li>In the Odoo web interface, go to the <strong>Apps</strong> section. There, you will see a
+list of various Odoo applications. Notice that our addon (called
+&ldquo;Library Management&rdquo;) is still not showing up on the list.</li><li>In order for our custom addon to show up on the list, we need to update
+the <strong>Apps</strong> list. And to do so, we need to enable the debug mode.</li><li>Enable debug or developer mode for your running Odoo instance by adding to
+the URL an HTTP GET parameter <code>debug</code> and setting its value to <code>1</code> to the URL
+when accessing your running Odoo instance in your browser.
+For example, go to the address bar and then type in
+<code>http://localhost:10015/web?debug=1</code> and then press Enter.</li><li>On the Odoo web interface, in the top navigation bar, you&rsquo;ll now see new
+actions such as <strong>App Store</strong>, <strong>Updates</strong>, <strong>Update Apps List</strong>, and
+<strong>Apply Scheduled Upgrades</strong>. What we need to do is updating the apps list.
+To do so, click <strong>Update Apps List</strong>. And then click the <strong>Update</strong> button
+in the showing up popup dialog.</li><li>Now, go to the <strong>Apps</strong> section again and search for our new addon with
+keywords like <code>library</code>.</li><li>And voila, there it is. Now, we need to <em>install</em> the addon first before we
+can use it and also before proceeding with the next step.</li><li>After our addon is installed, now we have a section called <strong>Library</strong> in our
+Odoo interface.</li><li>In this <strong>Library</strong> section, we can now start populating our library with
+some book data. Click the <strong>Create</strong> button to get started.</li></ol><h3 id=exploring-external-api-of-odoo-and-creating-our-odoo-addons-client-app>Exploring external API of Odoo, and creating our Odoo addon&rsquo;s client app</h3><ol><li><p>Set up a directory to get started working with this.
+This directory could be anywhere on your computer.
+E.g. <code>~/odoo-ext-api/</code></p><pre tabindex=0><code>$ cd ~
+$ mkdir odoo-ext-api
+$ cd odoo-ext-api/
+</code></pre></li><li><p>Copy the <code>client_app</code> folder from the <code>ch09</code> folder (from the previously
+cloned repo, <strong>Odoo-15-Development-Essentials</strong>) into your working directory.</p></li><li><p>From <code>odoo-ext-api/</code> directory, cd into <code>client_app</code> directory.</p><pre tabindex=0><code>$ cd client_app/
+</code></pre></li><li><p>Create Python virtual environment for running our Python scripts in the
+<code>client_app</code> directory.</p><pre tabindex=0><code>$ python3 -m venv ~/odoo-ext-api/client_app/env
+</code></pre><p>The above command will create a Python environment
+in <code>~/odoo-ext-api/client_app/env/</code>.</p><p>Why use a virtual environment? That&rsquo;s because, this way, we don&rsquo;t have to
+ruin/meddle with the system-wide installation of Python. Since we will need
+to install some Python packages via <code>pip</code> or <code>pip3</code>. And with the Python
+virtual environment, the packages we need will be installed to the virtual
+environment directory instead of the system&rsquo;s Python package directory.</p></li><li><p>We want to run all the python code using the Python from the virtual
+environment (<code>~/odoo-ext-api/client_app/env/bin/python3</code>). To confirm that
+we have Python installed in the virtual environment, we can check the Python
+version installed in there.</p><pre tabindex=0><code>$ ~/odoo-ext-api/client_app/env/bin/python3
+Python 3.10.8
+</code></pre></li><li><p>It&rsquo;s going to be much more comfortable if we set this as our current default
+Python interpreter. To do so, we can activate the virtual environment.</p><pre tabindex=0><code>$ source ~/odoo-ext-api/client_app/env/bin/activate
+</code></pre><p>Once the virtual environment is activated, the prompt will change from <code>$</code>
+to <code>(env) $</code>.
+Run <code>which</code> command to confirm that Python interpreter being used is the one
+from the virtual environment.</p><pre tabindex=0><code>(env) $ which python3
+/home/user/odoo-ext-api/client_app/env/bin/python3
+(env) $ which pip3
+/home/user/odoo-ext-api/client_app/env/bin/pip3
+</code></pre><p>To deactivate the virtual environment, we can just run <code>deactivate</code> command:</p><pre tabindex=0><code>(env) $ deactivate
+</code></pre></li><li><p>Now that our Python setup is ready, we move to setting up the python files.
+What we mean by the Python files are the Python scripts inside
+the <code>client_app</code> folder, i.e. files such as <code>ch09_external_api.py</code>,
+<code>library_odoorpc.py</code>, <code>library_xmlrpc.py</code>, and <code>library.py</code>.</p></li><li><p>Before we can run them, in those files, there are some variables whose value
+needs to be changed to match that of our running Odoo instance, for example,
+the port number, the database and user names, and the password.</p><p>In my case, the port number in which my Odoo instance is running is <code>10015</code>,
+the database is called <code>library</code>, both the user and the password are <code>admin</code>.</p></li><li><p>Now, it is time to run the Python files/scripts.</p></li><li><p>Firstly, in exploring the external Odoo API, we can run the commands inside
+the <code>ch09_external_api.py</code> file, one-by-one, line-per-line. For each command
+we run, we can get ourselves familiar with what the command does, and (if it
+returns something, then) what output it produces.</p><p>Below is the output of mine:</p><pre tabindex=0><code>(env) $ python3
+Python 3.10.8 (main, Oct 11 2022, 11:35:05) [GCC 11.2.0] on linux
+Type &#34;help&#34;, &#34;copyright&#34;, &#34;credits&#34; or &#34;license&#34; for more information.
+&gt;&gt;&gt;
+&gt;&gt;&gt; from xmlrpc import client
+&gt;&gt;&gt; srv = &#34;http://localhost:10015&#34;
+&gt;&gt;&gt; common = client.ServerProxy(&#34;%s/xmlrpc/2/common&#34; % srv)
+&gt;&gt;&gt; common.version()
+{&#39;server_version&#39;: &#39;15.0-20221005&#39;, &#39;server_version_info&#39;: [15, 0, 0, &#39;final&#39;, 0, &#39;&#39;], &#39;server_serie&#39;: &#39;15.0&#39;, &#39;protocol_version&#39;: 1}
+&gt;&gt;&gt; db, user, password = &#34;library&#34;, &#34;admin&#34;, &#34;admin&#34;
+&gt;&gt;&gt; uid = common.authenticate(db, user, password, {})
+&gt;&gt;&gt; print(uid)
+2
+&gt;&gt;&gt; api = client.ServerProxy(&#39;%s/xmlrpc/2/object&#39; % srv)
+&gt;&gt;&gt; api.execute_kw(db, uid, password, &#34;res.users&#34;, &#34;search_count&#34;, [[]])
+1
+&gt;&gt;&gt; api.execute_kw(db, uid, password, &#34;res.users&#34;, &#34;read&#34;, [2, [&#34;login&#34;, &#34;name&#34;, &#34;company_id&#34;]])
+[{&#39;id&#39;: 2, &#39;login&#39;: &#39;admin&#39;, &#39;name&#39;: &#39;Administrator&#39;, &#39;company_id&#39;: [1, &#39;My Company&#39;]}]
+&gt;&gt;&gt; domain = [(&#34;login&#34;, &#34;=&#34;, &#34;admin&#34;)]
+&gt;&gt;&gt; api.execute_kw(db, uid, password, &#34;res.users&#34;, &#34;search&#34;, [domain])
+[2]
+&gt;&gt;&gt; api.execute_kw(db, uid, password, &#34;res.users&#34;, &#34;search_read&#34;, [domain, [&#34;login&#34;, &#34;name&#34;]])
+[{&#39;id&#39;: 2, &#39;login&#39;: &#39;admin&#39;, &#39;name&#39;: &#39;Administrator&#39;}]
+&gt;&gt;&gt; api.execute_kw(db, uid, password, &#34;res.users&#34;, &#34;search_read&#34;, [], {&#34;domain&#34;: domain, &#34;fields&#34;: [&#34;login&#34;, &#34;name&#34;]})
+[{&#39;id&#39;: 2, &#39;login&#39;: &#39;admin&#39;, &#39;name&#39;: &#39;Administrator&#39;}]
+&gt;&gt;&gt; x = api.execute_kw(db, uid, password, &#34;res.partner&#34;, &#34;create&#34;, [{&#39;name&#39;: &#39;Packt Pub&#39;}])
+&gt;&gt;&gt; print(x)
+19
+&gt;&gt;&gt; api.execute_kw(db, uid, password, &#34;res.partner&#34;, &#34;write&#34;, [[x], {&#39;name&#39;: &#39;Packt Publishing&#39;}])
+True
+&gt;&gt;&gt; api.execute_kw(db, uid, password, &#34;res.partner&#34;, &#34;read&#34;, [[x], [&#34;name&#34;]])
+[{&#39;id&#39;: 19, &#39;name&#39;: &#39;Packt Publishing&#39;}]
+&gt;&gt;&gt; api.execute_kw(db, uid, password, &#34;res.partner&#34;, &#34;unlink&#34;, [[x]])
+True
+&gt;&gt;&gt; api.execute_kw(db, uid, password, &#34;res.partner&#34;, &#34;read&#34;, [[x]])
+[]
+&gt;&gt;&gt;
+</code></pre></li><li><p>Now, let&rsquo;s run the <code>library_xmlrpc.py</code> file.</p><pre tabindex=0><code>(env) $ python3 library_xmlrpc.py
+[{&#39;id&#39;: 1, &#39;name&#39;: &#39;Hatchet&#39;},
+ {&#39;id&#39;: 2, &#39;name&#39;: &#39;War and Peace&#39;},
+ {&#39;id&#39;: 3, &#39;name&#39;: &#39;Hadji Murad&#39;},
+ {&#39;id&#39;: 4, &#39;name&#39;: &#39;Woods Runner&#39;}]
+</code></pre><p>Since I have populated the Library data before, the file returns the list of
+all books added.</p></li><li><p>Now, if we want to manipulate books data of our Library, we cannot do so using
+only the <code>library_xmlrpc.py</code> file. Since this file only provides the methods
+for the functionalities (i.e. the create, read, update and delete; or CRUD);
+which is what we call as the API for our Library.</p></li><li><p>To do the data manipulation, we need an interface that acts as a bridge
+between the API and us as the user who does the data manipulation.</p><p>And the <code>library.py</code> file answers the need for that interface.</p><p>This <code>library.py</code> file is a CLI (command line interface) for our Odoo Library
+application.</p><p>It exposes the API of our Library app for our use by importing a Python class
+called <code>LibraryAPI</code> from either the <code>library_xmlrpc.py</code> file or
+the <code>library_odoorpc.py</code> file.</p><p>Now, comes a question. What is the difference between the <code>library_xmlrpc.py</code>
+file and the <code>library_odoorpc.py</code> file?</p><p>Both files can be utilized by the <code>library.py</code> as Python client library.
+The difference is that the <code>library_xmlrpc.py</code> file utilizes the <code>xmlrpc</code>
+library from Python standard library, whereas the <code>library_odoorpc.py</code> file
+utilizes the <code>odoorpc</code> library which can be installed via PyPI (i.e. Python
+Package Installer; by using <code>pip</code> or <code>pip3</code> commands).</p><p>To switch between using XML-RPC or OdooRPC (which utilizes JSON-RPC),
+we can do so just by commenting/uncommenting between the lines 4 or 5 in
+the <code>library.py</code> file.</p><p>This is what it looks like in lines 4 and 5 of the <code>library.py</code> file when we
+use OdooRPC:</p><pre tabindex=0><code># from library_xmlrpc import LibraryAPI
+from library_odoorpc import LibraryAPI
+</code></pre><p>And this is what it looks like when we use XML-RPC:</p><pre tabindex=0><code>from library_xmlrpc import LibraryAPI
+# from library_odoorpc import LibraryAPI
+</code></pre><p>As a heads up, when we are using OdooRPC as our client library in the
+<code>library.py</code> file, <em>firstly</em>, we need to install the <code>odoorpc</code> Python library
+using <code>pip3</code> (also, before installing <code>odoorpc</code> with <code>pip3</code>, make sure that the
+Python virtual environment is activated).</p><pre tabindex=0><code>(env) $ pip3 install odoorpc
+</code></pre><p>Or else, we will face an error message when running our <code>library.py</code>, like
+the following:</p><pre tabindex=0><code>(env) $ ./library.py
+Traceback (most recent call last):
+  File &#34;/home/user/odoo-ext-api/client_app/./library.py&#34;, line 5, in &lt;module&gt;
+    from library_odoorpc import LibraryAPI
+  File &#34;/home/user/odoo-ext-api/client_app/library_odoorpc.py&#34;, line 1, in &lt;module&gt;
+    import odoorpc
+ModuleNotFoundError: No module named &#39;odoorpc&#39;
+</code></pre></li><li><p>Now it&rsquo;s time to run the <code>library.py</code> file.</p><p>Note: Before running the file, make sure that the Python virtual environment
+is activated.</p><p>Alright, now let&rsquo;s run our <code>library.py</code> file.</p><p>We can run the file this way (using the <code>python3</code> command):</p><pre tabindex=0><code>(env) $ python3 library.py
+</code></pre><p>or this way (by adding a dot and a forward slash before the file name):</p><pre tabindex=0><code>(env) $ ./library.py
+</code></pre><p>When ran without any arguments, our script <code>library.py</code> returns an error
+message:</p><pre tabindex=0><code>(env) $ python3 library.py
+usage: library.py [-h] {list,add,set,del} [params ...]
+library.py: error: the following arguments are required: command, params
+</code></pre><p>We need to add one of these arguments in order for the file to work properly.</p><p>With the <code>list</code> command as the argument passed to our script <code>library.py</code>,
+we show the list of all books added to Library Management, our custom Odoo
+addon.</p><pre tabindex=0><code>(env) $ python3 library.py list
+1 Hatchet
+2 War and Peace
+3 Hadji Murad
+4 Woods Runner
+</code></pre><p>As shown above, we currently have four books which I&rsquo;ve added before via
+Odoo&rsquo;s web interface.</p><p>Now, we&rsquo;d like to add a new book to the catalog. To do so, we will use the
+command <code>add</code> and pass the name of our new book as parameter of the command.</p><p>What is shown below is what happens when we don&rsquo;t provide the book name as
+a parameter for the <code>add</code> command. Our client app (the <code>library.py</code> file) then
+just returned an error message and not proceeded with adding a new book.</p><pre tabindex=0><code>(env) $ python3 library.py add
+Traceback (most recent call last):
+  File &#34;/home/user/odoo-ext-api/client_app/library.py&#34;, line 27, in &lt;module&gt;
+    title = args.params[0]
+IndexError: list index out of range
+(env) $ python3 library.py list
+1 Hatchet
+2 War and Peace
+3 Hadji Murad
+4 Woods Runner
+</code></pre><p>Now, we will provide a book name as a value for the <code>add</code> command. We will
+add the &ldquo;Mastering Git&rdquo; book to our catalog.</p><pre tabindex=0><code>(env) $ python3 library.py add &#34;Mastering Git&#34;
+Book added with ID 5 for title Mastering Git.
+</code></pre><p>The returned message says that we&rsquo;ve successfully added a new book. Our newly
+added book whose title is &ldquo;Mastering Git&rdquo; is given <code>5</code> as its ID number.</p><p>Now, for some reason, we&rsquo;d like to delete a book. We will use the <code>del</code>
+command for doing so.</p><p>I tried to use book title as the parameter of the <code>del</code> command. And our CLI
+app returned an error message because it expected the book&rsquo;s ID number
+instead of its name string.</p><pre tabindex=0><code>(env) $ python3 library.py del &#34;Mastering Git&#34;
+Traceback (most recent call last):
+  File &#34;/home/user/odoo-ext-api/client_app/library.py&#34;, line 40, in &lt;module&gt;
+    book_id = int(args.params[0])
+ValueError: invalid literal for int() with base 10: &#39;Mastering Git&#39;
+(env) $ python3 library.py list
+1 Hatchet
+2 War and Peace
+3 Hadji Murad
+4 Woods Runner
+5 Mastering Git
+</code></pre><p>Now, we will use the <code>del</code> command properly by providing a book ID number as
+its parameter.</p><pre tabindex=0><code>(env) $ python3 library.py del 5
+Book with ID 5 was deleted.
+</code></pre><p>Now, the book titled &ldquo;Mastering Git&rdquo; with ID number of <code>5</code> is removed from our
+catalog.</p><p>We can confirm that by using the <code>list</code> command:</p><pre tabindex=0><code>(env) $ python3 library.py list
+1 Hatchet
+2 War and Peace
+3 Hadji Murad
+4 Woods Runner
+</code></pre><p>Now, there is only four books instead of five, and there is no book with ID
+number of <code>5</code>.</p><p>Now, we will demonstrate the functionality of the <code>set</code> command. It is used
+to edit existing records.</p><p>Before that, we will add another new book to our catalog. The book is titled
+&ldquo;The River&rdquo;.</p><pre tabindex=0><code>(env) $ python3 library.py add &#34;The River&#34;
+Book added with ID 6 for title The River.
+(env) $ python3 library.py list
+1 Hatchet
+2 War and Peace
+3 Hadji Murad
+4 Woods Runner
+6 The River
+</code></pre><p>Now, after having the book &ldquo;The River&rdquo; added to the catalog, we would like to
+edit its title to &ldquo;Brian&rsquo;s Hunt&rdquo;. We can do so by getting the book&rsquo;s ID
+number, which is <code>6</code>. And then we pass the ID number as the first parameter
+of the <code>set</code> command, and the string of the book&rsquo;s new name as the second
+parameter of the command.</p><pre tabindex=0><code>(env) $ python3 library.py set 6 &#34;Brian&#39;s Hunt&#34;
+Title of Book ID 6 set to Brian&#39;s Hunt.
+</code></pre><p>The message says that we&rsquo;ve successfully changed name or title of the book
+with ID number of <code>6</code>, from its old name &ldquo;The River&rdquo; to its new
+name &ldquo;Brian&rsquo;s Hunt&rdquo;.</p><p>We can confirm that by using the <code>list</code> command.</p><pre tabindex=0><code>(env) $ python3 library.py list
+1 Hatchet
+2 War and Peace
+3 Hadji Murad
+4 Woods Runner
+6 Brian&#39;s Hunt
+</code></pre><p>And, that&rsquo;s a wrap.</p></li></ol><h2 id=resources>Resources</h2><ul><li><a href=https://github.com/minhng92/odoo-15-docker-compose>Setup Odoo 15 with Docker</a></li><li><a href=https://www.packtpub.com/product/odoo-15-development-essentials-fifth-edition/9781800200067>The Odoo 15 Development Essentials (5th Edition) book</a> :
+Chapter 2: a good read on Odoo (and its addons) development environment setup,
+Chapter 3: behind-the-scene of the <code>library_app</code>,
+Chapter 9: our main reference of Odoo external API.</li><li><a href=https://github.com/PacktPublishing/Odoo-15-Development-Essentials>Source code attachment of the book</a> : ready-to-use <code>library_app</code>
+in the <code>./ch03/</code>, all code mentioned throughout Chapter 9 of the
+book in the <code>./ch09/</code>.</li></ul></div></article><hr class=no-print><nav aria-label="Previous and next pages" class=no-print><ul class=prev-next><li class=prev><span>&#8592; <small>Previous blog post:</small></span>
+<a href=https://fathyar.github.io/blog/2021/08/finding-a-better-method-for-hiding-page-metadata-using-front-matter-variables/ aria-label="Previous page">Finding a Better Method for Hiding Page Metadata Using Front Matter Variables</a></li></ul></nav></main><aside class=no-print><div><div><h3>LATEST POSTS</h3></div><div><ul><li><a href=/blog/2022/11/odoo-external-api-integration-demo-with-docker/>Odoo External API Integration Demo with Docker</a></li><li><a href=/blog/2021/08/finding-a-better-method-for-hiding-page-metadata-using-front-matter-variables/>Finding a Better Method for Hiding Page Metadata Using Front Matter Variables</a></li><li><a href=/blog/2021/08/choosing-between-cheatsheets-and-snippets-sections-they-are-redundant/>Choosing Between Cheatsheets and Snippets Sections: They Are Redundant(?)</a></li><li><a href=/blog/2021/08/introducing-my-hugo-theme-elementary/>Introducing My Hugo Theme, Elementary</a></li><li><a href=/blog/2021/08/introducing-a-new-shortcode-abbr/>Introducing a New Shortcode: abbr</a></li></ul></div></div></aside><footer><div><p>&copy; 2022 <a href=https://fathyar.github.io/><b>Fathy AR</b></a>.
+Powered by <a href=https://gohugo.io>Hugo</a>.
+<a href=https://github.com/fathyar><b>GitHub</b></a>
+&#183; <a href=https://codepen.io/fathy_ar><b>CodePen</b></a>
+&#183; <a href=/index.xml><b>RSS</b></a></p></div></footer><script src=/js/script.js></script></body></html>
